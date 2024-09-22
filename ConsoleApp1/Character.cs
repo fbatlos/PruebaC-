@@ -1,6 +1,6 @@
 ﻿using ConsoleApp1;
 
-public class Character(string name, int MaxHitPoints, int BaseDamage,int BaseArmor, List<IItem> _inventory)
+public class Character(string name, int PointsHealth, int? MaxHitPoints, int BaseDamage, int BaseArmor, List<IItem> _inventory)
 {
     
     public int Attack()
@@ -14,6 +14,7 @@ public class Character(string name, int MaxHitPoints, int BaseDamage,int BaseArm
             return BaseDamage + (DamegeAllItem(_inventory)/10);
         }
     }
+
     //
     int DamegeAllItem(List<IItem> _inventory)
     {
@@ -53,14 +54,21 @@ public class Character(string name, int MaxHitPoints, int BaseDamage,int BaseArm
 
         return totalArmor;
     }
-    void Heal(int amount)
+    public int Heal(int amount)
     {
-        
+        if(amount+PointsHealth <= 1000){
+            return amount+PointsHealth;
+        }
+        else
+        {
+            PointsHealth = 1000;
+            return PointsHealth;
+        }
     }
 
     public int ReceiveDamage(int damage)
     {
-        MaxHitPoints -= damage - (Defend()/10);
+        PointsHealth -= damage - (Defend()/10);
         
         return damage - (Defend()/10);
     }

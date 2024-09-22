@@ -9,10 +9,10 @@ Protection protection2 = new Protection("Helmet", 100);
 List<IItem> inventory = [weapon1,weapon2,protection1,protection2];
 
 
-
-
-Character player = new Character("Player", 1000,100, 100,inventory);
+Character player = new Character("Player",1000, null,100, 100,inventory);
 
 Console.WriteLine(player.Attack());
 
 Console.WriteLine(player.ReceiveDamage(100));
+
+Console.WriteLine(player.Heal(10));
