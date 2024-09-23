@@ -31,7 +31,7 @@ while (!player.IsDead() && !monster.IsDead())
             Console.WriteLine("1. Atacar");
             Console.WriteLine("2. Curarse (solo puedes hacerlo una vez por enfrentamiento)");
 
-            // Leer la acción del jugador
+           
             string choice = Console.ReadLine();
             switch (choice)
             {
@@ -55,10 +55,9 @@ while (!player.IsDead() && !monster.IsDead())
 
                 default:
                     Console.WriteLine("Opción no válida, intenta de nuevo.");
-                    continue;  // Volver a mostrar el menú sin que el monstruo ataque
+                    continue; 
             }
 
-            // Después del turno del jugador, el monstruo ataca si no ha muerto
             if (!monster.IsDead())
             {
                 int damageToPlayer = monster.Attack(random: new Random());
