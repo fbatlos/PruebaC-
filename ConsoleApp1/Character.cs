@@ -3,7 +3,7 @@ using ConsoleApp1;
 
 public class Character(string Name, int PointsHealth, int? MaxHitPoints, int BaseDamage, int BaseArmor, List<IItem> _inventory)
 {
-     public string Name = Name;
+    public string Name = Name;
     public int PointsHealth = PointsHealth;
 
     public int Attack(Random random)
@@ -20,7 +20,7 @@ public class Character(string Name, int PointsHealth, int? MaxHitPoints, int Bas
         else
         {
              if (rand < 0.1-stats[1])
-            {
+            {//No hacer los WriteLine , recordar
                 Console.WriteLine($"{Name} intentó atacar pero falló.");
                 return 0; // Ataque fallido
             }
@@ -108,5 +108,10 @@ public class Character(string Name, int PointsHealth, int? MaxHitPoints, int Bas
     {
         return PointsHealth <= 0;
     }
-    
+     
+     //ToString no es nada mala
+     public override string ToString()
+     {
+         return base.ToString();
+     }
 }
