@@ -2,18 +2,12 @@ using System;
 using ConsoleApp1;
 
 
-Weapon weapon1 = new Weapon("Axe", 120,0.01,0.5);
-Weapon weapon2 = new Weapon("Sword", 150);
-Protection protection1 = new Protection("Shield", 150);
-Protection protection2 = new Protection("Helmet", 100);
 
 
-List<IItem> inventory = [weapon1,weapon2,protection1,protection2];
 
+Character player = new Character("Player", null,100, 100,1000);
 
-Character player = new Character("Player",1000, null,100, 100,inventory);
-
-Character monster = new Character("Monster", 500, null, 80, 20, new List<IItem>());
+Character monster = new Character("Monster", null, 80, 20, 500);
 
 
 bool playerHealed = false;
