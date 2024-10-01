@@ -6,22 +6,17 @@ public class Character(
     int? MaxHitPoints,
     int BaseDamage,
     int BaseArmor,
-    int PointsHealth)
+    int PointsHealth,
+    List<IItem> _inventory )
 {
-    static Weapon weapon1 = new Weapon("Axe", 120,0.01,0.3);
-    static Weapon weapon2 = new Weapon("Sword", 150);
-    static Protection protection1 = new Protection("Shield", 150);
-    static Protection protection2 = new Protection("Helmet", 100);
-
-
-    List<IItem> _inventory = [weapon1,weapon2,protection1,protection2];
+    
     
     public string Name = Name;
     public int PointsHealth = PointsHealth;
     public int BaseDamage = BaseDamage;
     public int BaseArmor = BaseArmor;
     public int? MaxHitPoints = MaxHitPoints;
-
+   
     public int Attack(Random random)
     {
 

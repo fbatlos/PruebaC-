@@ -3,11 +3,18 @@ using ConsoleApp1;
 
 
 
+List<IItem> inventory = [];
 
+Character player = new Character("Player", null, 100, 100, 1000, inventory);
 
-Character player = new Character("Player", null,100, 100,1000);
+Character monster = new Character("Monster", null, 80, 20, 500,inventory);
 
-Character monster = new Character("Monster", null, 80, 20, 500);
+/*Ver acciones y eventos.
+ * Refactorizar el codigo.
+ * Hacer test .
+ * Realizar perck :
+ * 1º UML
+ */
 
 
 bool playerHealed = false;
