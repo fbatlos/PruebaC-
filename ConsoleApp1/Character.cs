@@ -9,16 +9,19 @@ public class Character(
     int PointsHealth,
     List<IItem> _inventory )
 {
-    public List<TypePerck> affected = [TypePerck.None];
+    public List<TypePerk> affected = [TypePerk.None];
     
     public string Name = Name;
     public int PointsHealth = PointsHealth;
     public int BaseDamage = BaseDamage;
     public int BaseArmor = BaseArmor;
     public int? MaxHitPoints = MaxHitPoints;
+    public List<IItem> _Inventory = _inventory;
 
     private int damage = 0;
     private int armor = 0;
+    
+   
    
     public int Attack(Random random)
     {
@@ -33,7 +36,8 @@ public class Character(
         else
         {
              if (rand < 0.1-stats[1])
-            {//No hacer los WriteLine , recordar
+
+             {//No hacer los WriteLine , recordar
                 Console.WriteLine($"{Name} intentó atacar pero falló.");
                 damage = 0;
                 return 0; // Ataque fallido
@@ -52,50 +56,6 @@ public class Character(
             damage = BaseDamage + (int)stats[0];
             return damage;
         }
-    }
-
-
-    public List<TypePerck> GetAffected()
-    {
-        var listPerck = new List<TypePerck>((int)TypePerck.None);
-        foreach (var weapon in _inventory)
-        {
-            if (GetPosibility(weapon.Perck))
-            {
-                listPerck.Add(weapon.Perck);
-            }
-        }
-        
-        return listPerck;
-        
-    }
-
-    public bool GetPosibility(TypePerck perck){
-        var random = new Random();
-        switch (perck)
-        {
-            case TypePerck.Burn:
-                if (random.Next(0, 7) == 0)
-                {
-                    return true;
-                }
-                break;
-            
-            case TypePerck.Paralysis :
-                if (random.Next(0, 5) == 0)
-                {
-                    return true;
-                }
-                break;
-            case TypePerck.Poison:
-                if (random.Next(0, 10) == 0)
-                {
-                    return true;
-                }
-                break;
-        }
-
-        return false;
     }
     //
     List<double> DamegeAllItem(List<IItem> _inventory)
@@ -153,7 +113,7 @@ public class Character(
         }
     }
 
-    public string ReceiveDamage(int damage)
+    public string ReceiveDamage(int damage , int damagePerk)
     {
         if (damage==0)
         {
@@ -162,28 +122,17 @@ public class Character(
 
         armor = Defend() / 10;
 
-        PointsHealth -= damage - armor + DamageBurn();
-        int damageTaken = damage - armor + DamageBurn();
+        PointsHealth -= damage - armor + damagePerk;
+        int damageTaken = damage - armor + damagePerk;
 
         if (PointsHealth < 0) PointsHealth = 0;
 
-        if (affected.Contains(TypePerck.Burn))
+        if (affected.Contains(TypePerk.Burn) && affected.Contains(TypePerk.Poison))
         {
             return $"{Name} se defendió y redujo el daño en {armor} puntos , pero recibió {damageTaken} de daño y 40 de quemadura . Vida restante: {PointsHealth}.";
         }
 
-        return $"{Name} recibió {damageTaken} de daño. Vida restante: {PointsHealth}.";
-    }
-
-    private int DamageBurn()
-    {
-        if (affected.Contains(TypePerck.Burn))
-        {
-            return 40;
-
-        }
-
-        return 0;
+        return $"{Name} se defendió y redujo el daño en {armor} puntos , pero recibió {damageTaken} de daño. Vida restante: {PointsHealth}.";
     }
 
      public bool IsDead()

@@ -1,14 +1,20 @@
 using System;
 using ConsoleApp1;
 
-var weapon1 = new Weapon("Axe", 20, TypePerck.Burn);
-var weapon2 = new Weapon("Sword Fire", 8, TypePerck.Paralysis);
+var weapon1 = new Weapon("Trunder Axe", 20, TypePerk.Paralysis);
+var weapon2 = new Weapon("Sword Fire", 8, TypePerk.Burn);
+var weapon3 = new Weapon("Potatoe", 99, TypePerk.Poison);
 
-List<IItem> inventory = [weapon1,weapon2];
+
+List<IItem> inventory = [weapon1,weapon2,weapon3];
 
 Character player = new Character("Player", null, 100, 100, 1000, inventory);
 
 Character monster = new Character("Monster", null, 80, 20, 500,inventory);
+
+ManagePerk playerManagerPerk = new ManagePerk(player);
+ManagePerk monsterManagerPerk = new ManagePerk(monster);
+
 
 /*Ver acciones y eventos.
  * Refactorizar el codigo.
@@ -16,8 +22,6 @@ Character monster = new Character("Monster", null, 80, 20, 500,inventory);
  * Realizar perck :
  * 1º UML
  */
-
-Console.WriteLine(player.GetAffected());
 
 bool playerHealed = false;
 
@@ -41,9 +45,9 @@ while (!player.IsDead() && !monster.IsDead())
             {
                 case "1": // Atacar
                     int damageToMonster = player.Attack(random: new Random());
-                    monster.affected = player.GetAffected();
+                    monster.affected = playerManagerPerk.GetAffected();
                     Console.WriteLine($"¡Atacas al monstruo y le causas {damageToMonster} de daño!");
-                    Console.WriteLine(monster.ReceiveDamage(damageToMonster));
+                    Console.WriteLine(monster.ReceiveDamage(damageToMonster, playerManagerPerk.DamagePerk()));
                     break;
 
                 case "2": // Curarse
@@ -66,13 +70,13 @@ while (!player.IsDead() && !monster.IsDead())
             if (!monster.IsDead())
             {
                 int damageToPlayer = monster.Attack(random: new Random());
-                player.affected = monster.GetAffected();
+                player.affected = monsterManagerPerk.GetAffected();
                 Console.WriteLine($"¡El monstruo te ataca y te causa {damageToPlayer} de daño!");
-                Console.WriteLine(player.ReceiveDamage(damageToPlayer));
+                Console.WriteLine(player.ReceiveDamage(damageToPlayer , monsterManagerPerk.DamagePerk()));
             }
             else
             {
-                if(monster.affected.Contains(TypePerck.Paralysis))Console.WriteLine($"El mounstruo esta paralizado .");
+                if(monster.affected.Contains(TypePerk.Paralysis))Console.WriteLine($"El mounstruo esta paralizado .");
             }
         }
 

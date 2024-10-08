@@ -4,7 +4,7 @@ public interface IItem
 {
     
     int Apply(Character character);
-    TypePerck Perck { get; set; }
+    TypePerk Perk { get; set; }
     double CritChance{ get; set; }
     
     double ReduceMissChance{ get; }

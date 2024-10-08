@@ -1,8 +1,9 @@
 ﻿namespace ConsoleApp1;
 
-public enum TypePerck
+public enum TypePerk
 {
     None,
+    Minion,
     Poison,
     Paralysis,
     Burn

@@ -65,7 +65,7 @@ public class CharacterTest
     public void HealthTest()
     {
         // test heal/receive damage
-        _character.ReceiveDamage(5);
+       // _character.ReceiveDamage(5);
         //Assert.Equal(5, _character.HitPoints);
         _character.Heal(10);
         //Assert.Equal(10, _character.HitPoints);

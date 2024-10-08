@@ -4,17 +4,17 @@ public class Protection : IItem
 {
     public string Name { get; }
     public int Armor { get; }
-    public TypePerck Perck { get; set; }
+    public TypePerk Perk { get; set; }
 
     public double CritChance { get; set; }
     public double ReduceMissChance { get; }
 
     // Constructor
-    public Protection(string name, int armor, TypePerck perck)
+    public Protection(string name, int armor, TypePerk perk)
     {
         Name = name;
         Armor = armor;
-        Perck = perck;
+        Perk = perk;
     }
 
     public int Apply(Character character)
