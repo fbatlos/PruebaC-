@@ -2,9 +2,12 @@ namespace ConsoleApp1;
 
 public interface IItem
 {
-     double ReduceMissChance{get;}
-     double CritChance {get;}
-     
-     TypePerck Perck {get;}
+    
     int Apply(Character character);
+    TypePerck Perck { get; set; }
+    double CritChance{ get; set; }
+    
+    double ReduceMissChance{ get; }
+    
+    
 }

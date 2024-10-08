@@ -69,7 +69,7 @@ public class Character(
         switch (perck)
         {
             case TypePerck.Burn:
-                if (random.Next(0, 8) == 0)
+                if (random.Next(0, 1) == 0)
                 {
                     return true;
                 }
@@ -149,11 +149,27 @@ public class Character(
 
     public string ReceiveDamage(int damage)
     {
-        PointsHealth -= damage - (Defend()/10);
-        int damageTaken = damage - (Defend()/10);
         
-        if (PointsHealth < 0) PointsHealth = 0; 
+        PointsHealth -= damage - (Defend()/10)-DamageBurn();
+        int damageTaken = damage - (Defend()/10)-DamageBurn();
+        
+        if (PointsHealth < 0) PointsHealth = 0;
+        if (affected.Contains(TypePerck.Burn))
+        {
+            return $"{Name} recibió {damageTaken} de daño y 40 de quemadura . Vida restante: {PointsHealth}.";
+        }
         return $"{Name} recibió {damageTaken} de daño. Vida restante: {PointsHealth}.";
+    }
+
+    private int DamageBurn()
+    {
+        if (affected.Contains(TypePerck.Burn))
+        {
+            return 40;
+
+        }
+
+        return 0;
     }
 
      public bool IsDead()

@@ -1,9 +1,10 @@
 using System;
 using ConsoleApp1;
 
-var weapon1 = new Weapon("Axe", 120, TypePerck.Paralysis);
+var weapon1 = new Weapon("Axe", 120, TypePerck.Burn);
+var weapon2 = new Weapon("Sword Fire", 80, TypePerck.Burn);
 
-List<IItem> inventory = [weapon1];
+List<IItem> inventory = [weapon1,weapon2];
 
 Character player = new Character("Player", null, 100, 100, 1000, inventory);
 
@@ -16,7 +17,7 @@ Character monster = new Character("Monster", null, 80, 20, 500,inventory);
  * 1º UML
  */
 
-
+Console.WriteLine(player.GetAffected());
 bool playerHealed = false;
 
 
@@ -64,6 +65,7 @@ while (!player.IsDead() && !monster.IsDead())
             if (!monster.IsDead())
             {
                 int damageToPlayer = monster.Attack(random: new Random());
+                player.affected = monster.GetAffected();
                 Console.WriteLine($"¡El monstruo te ataca y te causa {damageToPlayer} de daño!");
                 Console.WriteLine(player.ReceiveDamage(damageToPlayer));
             }
