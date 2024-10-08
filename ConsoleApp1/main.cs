@@ -1,9 +1,9 @@
 using System;
 using ConsoleApp1;
 
+var weapon1 = new Weapon("Axe", 120, TypePerck.Paralysis);
 
-
-List<IItem> inventory = [];
+List<IItem> inventory = [weapon1];
 
 Character player = new Character("Player", null, 100, 100, 1000, inventory);
 
@@ -18,6 +18,7 @@ Character monster = new Character("Monster", null, 80, 20, 500,inventory);
 
 
 bool playerHealed = false;
+
 
 Console.WriteLine("¡Te enfrentas a un monstruo!");
 
@@ -38,6 +39,7 @@ while (!player.IsDead() && !monster.IsDead())
             {
                 case "1": // Atacar
                     int damageToMonster = player.Attack(random: new Random());
+                    monster.affected = player.GetAffected();
                     Console.WriteLine($"¡Atacas al monstruo y le causas {damageToMonster} de daño!");
                     Console.WriteLine(monster.ReceiveDamage(damageToMonster));
                     break;
@@ -64,6 +66,10 @@ while (!player.IsDead() && !monster.IsDead())
                 int damageToPlayer = monster.Attack(random: new Random());
                 Console.WriteLine($"¡El monstruo te ataca y te causa {damageToPlayer} de daño!");
                 Console.WriteLine(player.ReceiveDamage(damageToPlayer));
+            }
+            else
+            {
+                if(monster.affected.Contains(TypePerck.Paralysis))Console.WriteLine($"El mounstruo esta paralizado .");
             }
         }
 

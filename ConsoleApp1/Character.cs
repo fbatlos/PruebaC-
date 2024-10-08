@@ -9,7 +9,7 @@ public class Character(
     int PointsHealth,
     List<IItem> _inventory )
 {
-    
+    public List<TypePerck> affected = [TypePerck.None];
     
     public string Name = Name;
     public int PointsHealth = PointsHealth;
@@ -19,7 +19,6 @@ public class Character(
    
     public int Attack(Random random)
     {
-
         double rand = random.NextDouble();
 
         List<double> stats = DamegeAllItem(_inventory);
@@ -49,6 +48,49 @@ public class Character(
         }
     }
 
+
+    public List<TypePerck> GetAffected()
+    {
+        var listPerck = new List<TypePerck>((int)TypePerck.None);
+        foreach (var weapon in _inventory)
+        {
+            if (GetPosibility(weapon.Perck))
+            {
+                listPerck.Add(weapon.Perck);
+            }
+        }
+        
+        return listPerck;
+        
+    }
+
+    public bool GetPosibility(TypePerck perck){
+        var random = new Random();
+        switch (perck)
+        {
+            case TypePerck.Burn:
+                if (random.Next(0, 8) == 0)
+                {
+                    return true;
+                }
+                break;
+            
+            case TypePerck.Paralysis :
+                if (random.Next(0, 5) == 0)
+                {
+                    return true;
+                }
+                break;
+            case TypePerck.Poison:
+                if (random.Next(0, 10) == 0)
+                {
+                    return true;
+                }
+                break;
+        }
+
+        return false;
+    }
     //
     List<double> DamegeAllItem(List<IItem> _inventory)
     {
@@ -68,7 +110,7 @@ public class Character(
 
         return [totalDamege,totalReduceMissChance,totalCritChance];
     }
-
+    
     int Defend()
     {
         if (_inventory.Count == 0)
@@ -108,10 +150,9 @@ public class Character(
     public string ReceiveDamage(int damage)
     {
         PointsHealth -= damage - (Defend()/10);
-        if (PointsHealth < 0) PointsHealth = 0; 
-
         int damageTaken = damage - (Defend()/10);
-
+        
+        if (PointsHealth < 0) PointsHealth = 0; 
         return $"{Name} recibió {damageTaken} de daño. Vida restante: {PointsHealth}.";
     }
 
