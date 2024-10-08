@@ -1,8 +1,8 @@
 using System;
 using ConsoleApp1;
 
-var weapon1 = new Weapon("Axe", 120, TypePerck.Burn);
-var weapon2 = new Weapon("Sword Fire", 80, TypePerck.Burn);
+var weapon1 = new Weapon("Axe", 20, TypePerck.Burn);
+var weapon2 = new Weapon("Sword Fire", 8, TypePerck.Paralysis);
 
 List<IItem> inventory = [weapon1,weapon2];
 
@@ -18,6 +18,7 @@ Character monster = new Character("Monster", null, 80, 20, 500,inventory);
  */
 
 Console.WriteLine(player.GetAffected());
+
 bool playerHealed = false;
 
 

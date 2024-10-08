@@ -16,6 +16,9 @@ public class Character(
     public int BaseDamage = BaseDamage;
     public int BaseArmor = BaseArmor;
     public int? MaxHitPoints = MaxHitPoints;
+
+    private int damage = 0;
+    private int armor = 0;
    
     public int Attack(Random random)
     {
@@ -32,6 +35,7 @@ public class Character(
              if (rand < 0.1-stats[1])
             {//No hacer los WriteLine , recordar
                 Console.WriteLine($"{Name} intentó atacar pero falló.");
+                damage = 0;
                 return 0; // Ataque fallido
             }
 
@@ -40,11 +44,13 @@ public class Character(
             if (rand < 0.3+stats[2])
             {
                 int critDamage = (BaseDamage +  (int)stats[0])*2; // Doble daño en crítico
+                damage = critDamage;
                 Console.WriteLine($"{Name} hizo un golpe crítico causando {critDamage} de daño.");
                 return critDamage;
             }
 
-            return BaseDamage +  (int)stats[0];
+            damage = BaseDamage + (int)stats[0];
+            return damage;
         }
     }
 
@@ -69,7 +75,7 @@ public class Character(
         switch (perck)
         {
             case TypePerck.Burn:
-                if (random.Next(0, 1) == 0)
+                if (random.Next(0, 7) == 0)
                 {
                     return true;
                 }
@@ -149,15 +155,23 @@ public class Character(
 
     public string ReceiveDamage(int damage)
     {
-        
-        PointsHealth -= damage - (Defend()/10)-DamageBurn();
-        int damageTaken = damage - (Defend()/10)-DamageBurn();
-        
+        if (damage==0)
+        {
+            return "No ha recivido daño";
+        }
+
+        armor = Defend() / 10;
+
+        PointsHealth -= damage - armor + DamageBurn();
+        int damageTaken = damage - armor + DamageBurn();
+
         if (PointsHealth < 0) PointsHealth = 0;
+
         if (affected.Contains(TypePerck.Burn))
         {
-            return $"{Name} recibió {damageTaken} de daño y 40 de quemadura . Vida restante: {PointsHealth}.";
+            return $"{Name} se defendió y redujo el daño en {armor} puntos , pero recibió {damageTaken} de daño y 40 de quemadura . Vida restante: {PointsHealth}.";
         }
+
         return $"{Name} recibió {damageTaken} de daño. Vida restante: {PointsHealth}.";
     }
 

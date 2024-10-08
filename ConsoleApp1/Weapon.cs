@@ -9,7 +9,7 @@ public class Weapon : IItem
     public double CritChance { get; set; }
 
     // Constructor
-    public Weapon(string name, int damage, TypePerck perck, double reduceMissChance = 0.01, double critChance = 0.3)
+    public Weapon(string name, int damage, TypePerck perck, double reduceMissChance = 0.01, double critChance = 0.03)
     {
         Name = name;
         Damage = damage;
