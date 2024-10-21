@@ -23,8 +23,6 @@ public class ManagePerk(Character character)
         var random = new Random();
         switch (perk)
         {
-            case TypePerk.Minion:
-                return true;
             case TypePerk.Burn:
                 if (random.Next(0, 7) == 0)
                 {
@@ -44,6 +42,11 @@ public class ManagePerk(Character character)
                     return true;
                 }
                 break;
+            case TypePerk.Minion:
+                Minion minion = new Minion(character);
+                return true;
+                break;
+            
         }
 
         return false;

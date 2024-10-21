@@ -18,11 +18,10 @@ public class Character(
     public int? MaxHitPoints = MaxHitPoints;
     public List<IItem> _Inventory = _inventory;
 
-    private int damage = 0;
-    private int armor = 0;
+    public int damage = 0;
+    public int armor = 0;
     
-   
-   
+
     public int Attack(Random random)
     {
         double rand = random.NextDouble();
